@@ -1,6 +1,21 @@
+
+# built application files
+*.apk
+*.ap_
+
+# Java class files
+*.class
+
+# generated fiels 
+bin/
+gen/
+
+# local configuration file (sdk path, etc)
+/local.properties
+
+# Android Studio
 *.iml
 .gradle
-/local.properties
 *.idea
 /.idea/caches
 /.idea/libraries
@@ -10,5 +25,6 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+.navigation
 /captures
 .externalNativeBuild

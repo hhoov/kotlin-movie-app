@@ -124,8 +124,8 @@ class MainFragment : BrowseFragment() {
         val mGridPresenter = GridItemPresenter()
         val gridRowAdapter = ArrayObjectAdapter(mGridPresenter)
         gridRowAdapter.add(resources.getString(R.string.grid_view))
-        gridRowAdapter.add(getString(R.string.error_fragment))
-        gridRowAdapter.add(resources.getString(R.string.personal_settings))
+        //gridRowAdapter.add(getString(R.string.error_fragment))
+        //gridRowAdapter.add(resources.getString(R.string.personal_settings))
         rowsAdapter.add(ListRow(gridHeader, gridRowAdapter))
 
         adapter = rowsAdapter
@@ -159,14 +159,16 @@ class MainFragment : BrowseFragment() {
                                                 DetailsActivity.SHARED_ELEMENT_NAME)
                                         .toBundle()
                 activity.startActivity(intent, bundle)
-            } else if (item is String) {
-                if (item.contains(getString(R.string.error_fragment))) {
-                    val intent = Intent(activity, BrowseErrorActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(activity, item, Toast.LENGTH_SHORT).show()
-                }
             }
+//            else if (item is String) {
+//                if (item.contains(getString(R.string.error_fragment))) {
+//                    val intent = Intent(activity, BrowseErrorActivity::class.java)
+//                    startActivity(intent)
+//                }
+//                else {
+//                    Toast.makeText(activity, item, Toast.LENGTH_SHORT).show()
+//                }
+//            }
         }
     }
 

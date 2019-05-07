@@ -18,7 +18,7 @@ import android.app.Activity
 import android.os.Bundle
 
 /**
- * Details activity class that loads [VideoDetailsFragment] class.
+ * Details activity class that loads VideoDetailsFragment] class.
  */
 class DetailsActivity : Activity() {
 

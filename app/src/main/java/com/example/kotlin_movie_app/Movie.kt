@@ -20,22 +20,26 @@ import java.io.Serializable
  * Movie class represents video entity with title, description, image thumbs and video url.
  */
 data class Movie(
-        var id: Long = 0,
+        var rank: Int = 0,
         var title: String? = null,
-        var description: String? = null,
-        var backgroundImageUrl: String? = null,
-        var cardImageUrl: String? = null,
-        var videoUrl: String? = null,
-        var studio: String? = null
+        var year: Int = 0,
+        var imdbId: String? = null,
+        var imdbRating: Double = 0.0,
+        var imdbVotes: Long = 0,
+        var poster: String? = null,
+        var imdbLink: String? = null
 ) : Serializable {
 
     override fun toString(): String {
         return "Movie{" +
-                "id=" + id +
+                "rank=" + rank +
                 ", title='" + title + '\'' +
-                ", videoUrl='" + videoUrl + '\'' +
-                ", backgroundImageUrl='" + backgroundImageUrl + '\'' +
-                ", cardImageUrl='" + cardImageUrl + '\'' +
+                ", year='" + year + '\'' +
+                ", imdbId='" + imdbId + '\'' +
+                ", imdbRating='" + imdbRating + '\'' +
+                ", imdbVotes='" + imdbVotes + '\'' +
+                ", poster='" + poster + '\'' +
+                ", imdbLink='" + imdbLink + '\'' +
                 '}'
     }
 

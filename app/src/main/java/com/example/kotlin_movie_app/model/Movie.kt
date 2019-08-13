@@ -12,38 +12,23 @@
  * the License.
  */
 
-package com.example.kotlin_movie_app
+package com.example.kotlin_movie_app.model
 
-import java.io.Serializable
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * Movie class represents video entity with title, description, image thumbs and video url.
  */
-data class Movie(
-        var rank: Int = 0,
-        var title: String? = null,
-        var year: Int = 0,
-        var imdbId: String? = null,
-        var imdbRating: Double = 0.0,
-        var imdbVotes: Long = 0,
-        var poster: String? = null,
-        var imdbLink: String? = null
-) : Serializable {
+class Movie @JsonCreator
+constructor(
+    @param:JsonProperty("rank") val rank: Int,
+    @param:JsonProperty("title") val title: String,
+    @param:JsonProperty("year") val year: Int,
+    @param:JsonProperty("imdbId") val imdbId: String,
+    @param:JsonProperty("imdbRating") val imdbRating: Double,
+    @param:JsonProperty("imdbVotes") val imdbVotes: Int,
+    @param:JsonProperty("poster") val poster: String,
+    @param:JsonProperty("imdbLink") val imdbLink: String
+)
 
-    override fun toString(): String {
-        return "Movie{" +
-                "rank=" + rank +
-                ", title='" + title + '\'' +
-                ", year='" + year + '\'' +
-                ", imdbId='" + imdbId + '\'' +
-                ", imdbRating='" + imdbRating + '\'' +
-                ", imdbVotes='" + imdbVotes + '\'' +
-                ", poster='" + poster + '\'' +
-                ", imdbLink='" + imdbLink + '\'' +
-                '}'
-    }
-
-    companion object {
-        internal const val serialVersionUID = 727566175075960653L
-    }
-}

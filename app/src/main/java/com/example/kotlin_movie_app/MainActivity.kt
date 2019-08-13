@@ -15,15 +15,20 @@
 package com.example.kotlin_movie_app
 
 import android.app.Activity
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
+import androidx.fragment.app.FragmentActivity
+import androidx.leanback.app.OnboardingSupportFragment
 
 /**
  * Loads [MainFragment].
  */
-class MainActivity : Activity() {
+class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
     }
 }

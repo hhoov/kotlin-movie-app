@@ -8,10 +8,10 @@ import javax.inject.Singleton
 @Module
 class AppModule {
 
-    init {
+    /*init {
         AppModule()
     }
-
+*/
     @Provides
     @Singleton
     fun provideOkhttpClient() : OkHttpClient {

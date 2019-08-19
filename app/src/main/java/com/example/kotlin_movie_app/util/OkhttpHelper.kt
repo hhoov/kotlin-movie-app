@@ -1,21 +1,27 @@
 package com.example.kotlin_movie_app.util
 
-import androidx.appcompat.app.AppCompatActivity
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import retrofit2.Retrofit
 import java.io.IOException
-import java.io.InputStream
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
 private const val MOVIE_URL = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/35cccb4bb96bc00575f34ab49bb0f56bf7c77f0e/top_movies.json"
 
-abstract class OkhttpHelper : AppCompatActivity()
-{
-    //private val okHttpClient: OkHttpClient()
+@Singleton
+class OkhttpHelper {
+    private var jsonData : String = ""
+    private lateinit var okHttpClient: OkHttpClient
+
+    @Inject
+    fun OkhttpHelper(okHttpClient: OkHttpClient) {
+        this.okHttpClient = okHttpClient
+    }
 
     fun provideOkhttpClient(): OkHttpClient {
-
-
         val client = OkHttpClient.Builder()
         return client.build()
     }
@@ -28,29 +34,28 @@ abstract class OkhttpHelper : AppCompatActivity()
             .build()
             .create(MOVIE_URL::class.java)
     }
-}
 
-    fun makeRequest(url: String): InputStream {
-        var jsonData = ""
+
+    private fun makeRequest(url: String): String {
         try {
-            /*val request = Retrofit.Builder()
-                .baseUrl(url)
-                .build()*/
+            val request = Request.Builder()
+                .url(url)
+                .build()
+            var response: Response? = null
 
-           // var response: Response? = null
             try {
-               // response = okHttpClient.newCall(request).execute()
+                response = okHttpClient.newCall(request).execute()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
 
-           // jsonData = response!!.body().string()
+            jsonData = response?.body.toString()
 
         } catch (e: IOException) {
             e.printStackTrace()
         }
 
-        return jsonData.byteInputStream()
+        return jsonData
 
-
+    }
 }

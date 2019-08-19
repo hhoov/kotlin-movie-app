@@ -15,20 +15,25 @@
 	<application
 			android:name=".MovieApplication"
 			android:allowBackup="true"
-	        android:banner="@drawable/banner"
+
+			android:banner="@drawable/ic_launcher"
+
 			android:icon="@drawable/ic_launcher"
 			android:label="@string/app_name"
+
 			android:logo="@drawable/app_icon_your_company"
 			android:supportsRtl="true"
+
 			android:theme="@style/Theme.Leanback"
-			tools:ignore="GoogleAppIndexingWarning">
+			tools:ignore="GoogleAppIndexingWarning"
+	>
 		<activity
 				android:name=".MoviesActivity"
-				android:icon="@drawable/banner"
+				android:icon="@drawable/app_icon_movies"
 				android:label="@string/app_name"
-				android:logo="@drawable/banner"
+				android:logo="@drawable/app_icon_movies"
 				android:screenOrientation="landscape"
-				android:theme="@style/Theme.Leanback.Browse">
+		android:theme="@style/Theme.Leanback.Browse">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.LEANBACK_LAUNCHER"/>

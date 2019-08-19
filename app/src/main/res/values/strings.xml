@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Kotlin-Movie-App</string>
-    <string name="browse_title"><![CDATA[Videos by Your Company]]></string>
+    <string name="browse_title"><![CDATA[Hello Android TV!]]></string>
     <string name="related_movies">Related Videos</string>
     <string name="grid_view">Grid View</string>
     <string name="error_fragment">Error Fragment</string>
@@ -17,4 +17,7 @@
     <string name="rent_2">From $1.99</string>
     <string name="buy_1">Buy and Own</string>
     <string name="buy_2">AT $9.99</string>
+    <string name="movie_url">
+        https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/35cccb4bb96bc00575f34ab49bb0f56bf7c77f0e/top_movies.json
+    </string>
 </resources>

@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.*
+import com.example.kotlin_movie_app.model.Movie
 
 /**
  * Responsible for the UI of [MoviesActivity]. Loads a grid of cards with movies to browse.
@@ -83,7 +84,19 @@ class MovieBrowseFragment : BrowseSupportFragment() {
         movieGridRowAdapter.add("ITEM 3")
         rowsAdapter.add(ListRow(movieGridPresenterHeaderItem, movieGridRowAdapter))
 
+        // CardPresenter
+        val cardPresenterHeader = HeaderItem(1, "CardPresenter")
+        val cardPresenter = CardPresenter()
+        val cardRowAdapter = ArrayObjectAdapter(cardPresenter)
+
+        for (i in 0..10) {
+            val movie = Movie(i, "Title $i", i, "imdbID $i", 1.0, i, "Poster $i", "imdbLink $i")
+            cardRowAdapter.add(movie)
+        }
+        rowsAdapter.add(ListRow(cardPresenterHeader, cardRowAdapter))
+
         adapter = rowsAdapter
+
     }
 
 private class MovieGridPresenter : Presenter(){
@@ -91,7 +104,7 @@ private class MovieGridPresenter : Presenter(){
         override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
             val view = TextView(parent.context)
             view.layoutParams = ViewGroup.LayoutParams(GRID_ITEM_WIDTH, GRID_ITEM_HEIGHT)
-            view.focusable = parent.focusable
+            view.focusable
             view.isFocusableInTouchMode = true
             view.setBackgroundColor(getColor(parent.context.resources, R.color.default_background, null))
             view.setTextColor(Color.WHITE)

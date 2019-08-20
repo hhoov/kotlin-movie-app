@@ -89,7 +89,7 @@ class MovieBrowseFragment : BrowseSupportFragment() {
         val cardPresenter = CardPresenter()
         val cardRowAdapter = ArrayObjectAdapter(cardPresenter)
 
-        for (i in 0..10) {
+        for (i in 1..10) {
             val movie = Movie(i, "Title $i", i, "imdbID $i", 1.0, i, "Poster $i", "imdbLink $i")
             cardRowAdapter.add(movie)
         }

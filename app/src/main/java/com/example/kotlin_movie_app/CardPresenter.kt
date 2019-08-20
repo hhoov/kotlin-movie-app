@@ -5,10 +5,10 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import com.example.kotlin_movie_app.model.Movie
-
 
 
 class CardPresenter : Presenter() {
@@ -29,15 +29,11 @@ class CardPresenter : Presenter() {
        init {
             super.view
             cardView = view as ImageCardView
-            defaultCardImage = context.resources.getDrawable(R.drawable.movie)
+            defaultCardImage = ContextCompat.getDrawable(context, R.drawable.movie)!!
         }
 
         fun setMovie(m : Movie) {
             movie = m
-        }
-
-        fun getMovie() : Movie {
-            return movie
         }
 
         fun getCardView() : ImageCardView {
@@ -47,6 +43,7 @@ class CardPresenter : Presenter() {
         fun getDefaultCardImage() : Drawable {
             return defaultCardImage
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
@@ -56,7 +53,7 @@ class CardPresenter : Presenter() {
         val cardView = ImageCardView(context)
         cardView.focusable
         cardView.isFocusableInTouchMode = true
-        cardView.setBackgroundColor(context.resources.getColor(R.color.headers_background))
+        cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.headers_background))
 
         return ViewHolder(cardView)
     }
@@ -67,18 +64,14 @@ class CardPresenter : Presenter() {
 
         Log.d(TAG, "onBindViewHolder")
         viewHolder.getCardView().titleText = movie.title
-        (viewHolder as ViewHolder).getCardView().contentText = movie.imdbId
-        (viewHolder as ViewHolder).getCardView().setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
-        (viewHolder as ViewHolder).getCardView().setMainImage((viewHolder as ViewHolder).getDefaultCardImage())
+        viewHolder.getCardView().contentText = movie.imdbId
+        viewHolder.getCardView().setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
+        viewHolder.getCardView().mainImage = viewHolder.getDefaultCardImage()
 
     }
 
     override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder) {
         Log.d(TAG, "onUnbindViewHolder")
-    }
-
-    override fun onViewAttachedToWindow(holder: Presenter.ViewHolder) {
-        //super.onViewAttachedToWindow(holder)
     }
 
 }

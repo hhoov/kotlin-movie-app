@@ -14,8 +14,6 @@ class MovieApplication : Application() {
         super.onCreate()
         instance = this
 
-        //appComponent.inject(this)
-
         appComponent = DaggerAppComponent.builder()
             .appModule(AppModule())
             .build()

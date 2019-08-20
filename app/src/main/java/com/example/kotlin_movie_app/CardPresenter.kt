@@ -1,6 +1,5 @@
 package com.example.kotlin_movie_app
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
@@ -10,15 +9,12 @@ import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import com.example.kotlin_movie_app.model.Movie
 
-
 class CardPresenter : Presenter() {
 
     companion object {
         private const val TAG = "CardPresenter"
         private const val CARD_WIDTH = 313
         private const val CARD_HEIGHT = 176
-        private lateinit var context : Context
-
     }
 
     class ViewHolder(view: View) : Presenter.ViewHolder(view) {
@@ -29,7 +25,7 @@ class CardPresenter : Presenter() {
        init {
             super.view
             cardView = view as ImageCardView
-            defaultCardImage = ContextCompat.getDrawable(context, R.drawable.movie)!!
+            defaultCardImage = ContextCompat.getDrawable(view.context, R.drawable.movie)!!
         }
 
         fun setMovie(m : Movie) {
@@ -43,17 +39,15 @@ class CardPresenter : Presenter() {
         fun getDefaultCardImage() : Drawable {
             return defaultCardImage
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
         Log.d(TAG, "onCreateViewHolder")
-        context = parent.context
 
-        val cardView = ImageCardView(context)
+        val cardView = ImageCardView(parent.context)
         cardView.focusable
         cardView.isFocusableInTouchMode = true
-        cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.headers_background))
+        cardView.setBackgroundColor(ContextCompat.getColor(parent.context, R.color.headers_background))
 
         return ViewHolder(cardView)
     }
@@ -67,11 +61,9 @@ class CardPresenter : Presenter() {
         viewHolder.getCardView().contentText = movie.imdbId
         viewHolder.getCardView().setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
         viewHolder.getCardView().mainImage = viewHolder.getDefaultCardImage()
-
     }
 
     override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder) {
         Log.d(TAG, "onUnbindViewHolder")
     }
-
 }

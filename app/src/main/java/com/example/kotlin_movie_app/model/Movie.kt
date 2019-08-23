@@ -18,4 +18,3 @@ constructor(
     @param:JsonProperty("poster") val poster: String,
     @param:JsonProperty("imdbLink") val imdbLink: String
 )
-

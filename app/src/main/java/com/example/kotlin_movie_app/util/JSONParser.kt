@@ -6,12 +6,10 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 
-
 class JSONParser {
 
     @Throws(IOException::class)
     fun readJsonStream(response: String): List<Movie> {
-
         val mapper = ObjectMapper()
 
         // Configures deserialization

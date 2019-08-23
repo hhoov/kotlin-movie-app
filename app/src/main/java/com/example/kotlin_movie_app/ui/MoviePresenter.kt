@@ -1,6 +1,6 @@
 package com.example.kotlin_movie_app.ui
 
-import com.example.kotlin_movie_app.UIExecutor
+import com.example.kotlin_movie_app.util.UIExecutor
 import com.example.kotlin_movie_app.data.MovieProvider
 import com.example.kotlin_movie_app.model.Movie
 import com.example.kotlin_movie_app.util.NullObject

@@ -2,7 +2,7 @@ package com.example.kotlin_movie_app.dagger
 
 import android.os.Handler
 import android.os.Looper
-import com.example.kotlin_movie_app.UIExecutor
+import com.example.kotlin_movie_app.util.UIExecutor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -19,7 +19,10 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideUIExecutor() : UIExecutor { return UIExecutor(Handler(Looper.getMainLooper())) }
+    fun provideUIExecutor() : UIExecutor { return UIExecutor(
+        Handler(Looper.getMainLooper())
+    )
+    }
 
     @Provides
     @Singleton

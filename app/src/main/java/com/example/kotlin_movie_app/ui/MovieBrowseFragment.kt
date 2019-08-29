@@ -1,17 +1,16 @@
 package com.example.kotlin_movie_app.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.leanback.app.BrowseSupportFragment
-import androidx.leanback.widget.ArrayObjectAdapter
-import androidx.leanback.widget.HeaderItem
-import androidx.leanback.widget.ListRow
-import androidx.leanback.widget.ListRowPresenter
+import androidx.leanback.widget.*
 import com.example.kotlin_movie_app.MovieApplication
 import com.example.kotlin_movie_app.R
 import com.example.kotlin_movie_app.model.Movie
+import java.io.Serializable
 import javax.inject.Inject
 
 /**
@@ -24,7 +23,7 @@ class MovieBrowseFragment : BrowseSupportFragment(), MoviePresenter.MovieView {
     @Inject lateinit var moviePresenter : MoviePresenter
     private lateinit var rowsAdapter : ArrayObjectAdapter
     private lateinit var moviesRowHeader : HeaderItem
-    lateinit var moviesRowAdapter : ArrayObjectAdapter
+    private lateinit var moviesRowAdapter : ArrayObjectAdapter
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
@@ -34,6 +33,8 @@ class MovieBrowseFragment : BrowseSupportFragment(), MoviePresenter.MovieView {
 
         setupUIElements()
         rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
+
+        setupEventListeners()
 
         moviePresenter.onAttach(this)
         moviePresenter.present()
@@ -69,5 +70,31 @@ class MovieBrowseFragment : BrowseSupportFragment(), MoviePresenter.MovieView {
 
         // BrowseSupportFragment's setAdapter()
         adapter = rowsAdapter
+    }
+
+    private fun setupEventListeners() {
+        setOnSearchClickedListener {
+            Toast.makeText(activity, "Implement your own in-app search", Toast.LENGTH_LONG)
+                .show()
+        }
+
+        onItemViewClickedListener = ItemViewClickedListener()
+    }
+
+    private inner class ItemViewClickedListener : OnItemViewClickedListener {
+        override fun onItemClicked(
+            itemViewHolder: Presenter.ViewHolder,
+            item: Any,
+            rowViewHolder: RowPresenter.ViewHolder,
+            row: Row
+        ) {
+
+            if (item is Movie) {
+                Log.d(TAG, "Item: $item")
+                val intent = Intent(activity, MovieDetailsActivity::class.java)
+                intent.putExtra(MovieDetailsActivity.MOVIE, item as Serializable)
+                activity?.startActivity(intent)
+            }
+        }
     }
 }

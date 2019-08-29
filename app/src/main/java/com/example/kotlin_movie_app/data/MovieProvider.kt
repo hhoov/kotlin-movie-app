@@ -19,7 +19,7 @@ class MovieProvider @Inject constructor(private val okHttpClient: OkHttpClient) 
     @Throws(IOException::class)
     fun getMovieData() : List<Movie> {
         jsonData = makeRequest(Constants.BASE_URL)
-        return jsonParser.readJsonStream(jsonData)
+        return jsonParser.readSummaryJsonStream(jsonData)
     }
 
     private fun makeRequest(url : String) : String {

@@ -12,6 +12,7 @@ import androidx.leanback.widget.Presenter
 import com.bumptech.glide.Glide
 import com.example.kotlin_movie_app.R
 import com.example.kotlin_movie_app.model.Movie
+import com.example.kotlin_movie_app.util.Constants
 import kotlinx.android.synthetic.main.card_movie.view.*
 
 class CardPresenter : Presenter() {
@@ -22,11 +23,11 @@ class CardPresenter : Presenter() {
 
     class ViewHolder(view: View) : Presenter.ViewHolder(view) {
         private lateinit var movie : Movie
-        private val posterImageView : ImageView
-        private val defaultCardImage : Drawable
-        private val rankTextView : TextView
-        private val titleTextView : TextView
-        private val yearTextView : TextView
+        val posterImageView : ImageView
+        val defaultCardImage : Drawable
+        val rankTextView : TextView
+        val titleTextView : TextView
+        val yearTextView : TextView
 
        init {
            super.view
@@ -40,12 +41,6 @@ class CardPresenter : Presenter() {
         fun setMovie(m : Movie) {
             movie = m
         }
-
-        fun getPosterImageView() : ImageView { return posterImageView }
-        fun getRankTextView() : TextView { return rankTextView }
-        fun getTitleTextView() : TextView { return titleTextView }
-        fun getYearTextView() : TextView { return yearTextView }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
@@ -65,24 +60,24 @@ class CardPresenter : Presenter() {
         val movie = item as Movie
         (viewHolder as ViewHolder).setMovie(movie)
 
-        viewHolder.getRankTextView().text = movie.rank.toString()
-        viewHolder.getTitleTextView().text = movie.title
-        viewHolder.getYearTextView().text = movie.year.toString()
+        viewHolder.rankTextView.text = movie.rank.toString()
+        viewHolder.titleTextView.text = movie.title
+        viewHolder.yearTextView.text = movie.year.toString()
 
         Log.d(TAG, "-------         ----------      ---------")
         Log.d(TAG, "viewHolder.view -- " + viewHolder.view)
         Log.d(TAG, "vH.view.context -- " + viewHolder.view.context)
         Log.d(TAG, "movie.poster -- " + movie.poster)
-        Log.d(TAG, "vH.getPosterImageView() -- " + viewHolder.getPosterImageView())
+        Log.d(TAG, "vH.getPosterImageView() -- " + viewHolder.posterImageView)
         Log.d(TAG, "-------         ----------      ---------")
 
         Glide.with(viewHolder.view.context)
-            .load("https://static.techspot.com/images2/downloads/topdownload/2019/07/2019-07-17-ts3_thumbs-9d7.png")
+            .load(Constants.TEST_IMAGE_URL)
             .centerCrop()
             .placeholder(R.drawable.lb_ic_loop) // placeholder before Glide starts loading the image
             .error(R.drawable.ic_launcher) // when Glide is unable to load the image + non-existing-url
             .fallback(R.drawable.lb_ic_stop) // when the url can be null
-            .into(viewHolder.getPosterImageView())
+            .into(viewHolder.posterImageView)
     }
 
     override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder) {

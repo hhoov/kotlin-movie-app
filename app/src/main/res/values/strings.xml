@@ -20,4 +20,5 @@
     <string name="movie_url">
         https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/35cccb4bb96bc00575f34ab49bb0f56bf7c77f0e/top_movies.json
     </string>
+    <string name="browse_header">Movies</string>
 </resources>

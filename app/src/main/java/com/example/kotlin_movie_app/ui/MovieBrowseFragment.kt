@@ -24,6 +24,7 @@ class MovieBrowseFragment : BrowseSupportFragment(), MoviePresenter.MovieView {
     private lateinit var rowsAdapter : ArrayObjectAdapter
     private lateinit var moviesRowHeader : HeaderItem
     private lateinit var moviesRowAdapter : ArrayObjectAdapter
+    private lateinit var cardPresenter : CardPresenter
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
@@ -31,22 +32,18 @@ class MovieBrowseFragment : BrowseSupportFragment(), MoviePresenter.MovieView {
 
         MovieApplication.instance().appComponent.inject(this)
 
-        setupUIElements()
-        rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
-
-        setupEventListeners()
-
-        moviePresenter.onAttach(this)
-        moviePresenter.present()
-    }
-
-    // Sets application title/icon and brand color
-    private fun setupUIElements() {
         // Takes precedent over title when badge is set; puts badge in top right corner
         badgeDrawable = context?.getDrawable(R.drawable.app_icon_movies)
 
-        // Set headers (or fastlane) background color
+        // Sets the headers (or fastlane) background color
         brandColor = ContextCompat.getColor(this.context!!, R.color.headers_background)
+
+        rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
+
+        cardPresenter = CardPresenter()
+
+        moviePresenter.onAttach(this)
+        moviePresenter.present()
     }
 
     override fun updateMovies(movies: List<Movie>) {
@@ -59,42 +56,14 @@ class MovieBrowseFragment : BrowseSupportFragment(), MoviePresenter.MovieView {
 
     private fun loadRows(movies : Collection<Movie>) {
 
-        val cardPresenter = CardPresenter()
-
         moviesRowAdapter = ArrayObjectAdapter(cardPresenter)
         moviesRowAdapter.addAll(0, movies)
 
-        moviesRowHeader = HeaderItem(1, "Movies")
+        moviesRowHeader = HeaderItem(1, getString(R.string.browse_header))
 
         rowsAdapter.add(ListRow(moviesRowHeader, moviesRowAdapter))
 
         // BrowseSupportFragment's setAdapter()
         adapter = rowsAdapter
-    }
-
-    private fun setupEventListeners() {
-        setOnSearchClickedListener {
-            Toast.makeText(activity, "Implement your own in-app search", Toast.LENGTH_LONG)
-                .show()
-        }
-
-        onItemViewClickedListener = ItemViewClickedListener()
-    }
-
-    private inner class ItemViewClickedListener : OnItemViewClickedListener {
-        override fun onItemClicked(
-            itemViewHolder: Presenter.ViewHolder,
-            item: Any,
-            rowViewHolder: RowPresenter.ViewHolder,
-            row: Row
-        ) {
-
-            if (item is Movie) {
-                Log.d(TAG, "Item: $item")
-                val intent = Intent(activity, MovieDetailsActivity::class.java)
-                intent.putExtra(MovieDetailsActivity.MOVIE, item as Serializable)
-                activity?.startActivity(intent)
-            }
-        }
     }
 }

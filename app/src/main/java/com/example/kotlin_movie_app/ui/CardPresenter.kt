@@ -1,6 +1,6 @@
 package com.example.kotlin_movie_app.ui
 
-import android.graphics.drawable.Drawable
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,10 +21,10 @@ class CardPresenter : Presenter() {
         private const val TAG = "CardPresenter"
     }
 
-    class ViewHolder(view: View) : Presenter.ViewHolder(view) {
+    class ViewHolder(view: View) : Presenter.ViewHolder(view), MovieSummaryPresenter.MovieSummaryView {
         private lateinit var movie : Movie
+        lateinit var movieSummaryPresenter: MovieSummaryPresenter
         val posterImageView : ImageView
-        val defaultCardImage : Drawable
         val rankTextView : TextView
         val titleTextView : TextView
         val yearTextView : TextView
@@ -32,14 +32,25 @@ class CardPresenter : Presenter() {
        init {
            super.view
            posterImageView = view.poster
-           defaultCardImage = ContextCompat.getDrawable(view.context, R.drawable.movie)!!
            rankTextView = view.rankTextView
            titleTextView = view.titleTextView
            yearTextView = view.yearTextView
-        }
+
+           view.setOnClickListener {
+               Log.d(TAG, " -- setOnClickListener")
+               movieSummaryPresenter.onMovieClicked()
+           }
+       }
 
         fun setMovie(m : Movie) {
             movie = m
+        }
+
+        override fun startDetailActivity(imdbId : String) {
+            Log.d(TAG, "startDetailActivity()")
+            val intent = Intent(posterImageView.context, MovieDetailsActivity::class.java)
+            intent.putExtra("imdbId", imdbId)
+            posterImageView.context.startActivity(intent)
         }
     }
 
@@ -59,6 +70,9 @@ class CardPresenter : Presenter() {
     override fun onBindViewHolder(viewHolder: Presenter.ViewHolder, item: Any) {
         val movie = item as Movie
         (viewHolder as ViewHolder).setMovie(movie)
+
+        val selectedImdbId : String = movie.imdbId
+        viewHolder.movieSummaryPresenter = MovieSummaryPresenter(selectedImdbId)
 
         viewHolder.rankTextView.text = movie.rank.toString()
         viewHolder.titleTextView.text = movie.title

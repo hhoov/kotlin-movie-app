@@ -1,16 +1,17 @@
 package com.example.kotlin_movie_app.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.leanback.app.BrowseSupportFragment
-import androidx.leanback.widget.*
+import androidx.leanback.widget.ArrayObjectAdapter
+import androidx.leanback.widget.HeaderItem
+import androidx.leanback.widget.ListRow
+import androidx.leanback.widget.ListRowPresenter
 import com.example.kotlin_movie_app.MovieApplication
 import com.example.kotlin_movie_app.R
 import com.example.kotlin_movie_app.model.Movie
-import java.io.Serializable
 import javax.inject.Inject
 
 /**

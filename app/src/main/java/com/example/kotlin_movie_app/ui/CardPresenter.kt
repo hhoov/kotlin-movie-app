@@ -21,9 +21,8 @@ class CardPresenter : Presenter() {
         private const val TAG = "CardPresenter"
     }
 
-    class ViewHolder(view: View) : Presenter.ViewHolder(view), MovieSummaryPresenter.MovieSummaryView {
+    class ViewHolder(view: View) : Presenter.ViewHolder(view){
         private lateinit var movie : Movie
-        lateinit var movieSummaryPresenter: MovieSummaryPresenter
         val posterImageView : ImageView
         val rankTextView : TextView
         val titleTextView : TextView
@@ -38,19 +37,17 @@ class CardPresenter : Presenter() {
 
            view.setOnClickListener {
                Log.d(TAG, " -- setOnClickListener")
-               movieSummaryPresenter.onMovieClicked()
+               val intent = Intent(it.context, MovieDetailsActivity::class.java)
+               //val intent = Intent(Intent.ACTION_SEND)
+               //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+               intent.putExtra("imdbId", movie.imdbId)
+               //intent.putExtra("imdbId", movie.imdbId)
+               it.context.startActivity(intent)
            }
        }
 
         fun setMovie(m : Movie) {
             movie = m
-        }
-
-        override fun startDetailActivity(imdbId : String) {
-            Log.d(TAG, "startDetailActivity()")
-            val intent = Intent(posterImageView.context, MovieDetailsActivity::class.java)
-            intent.putExtra("imdbId", imdbId)
-            posterImageView.context.startActivity(intent)
         }
     }
 
@@ -72,7 +69,6 @@ class CardPresenter : Presenter() {
         (viewHolder as ViewHolder).setMovie(movie)
 
         val selectedImdbId : String = movie.imdbId
-        viewHolder.movieSummaryPresenter = MovieSummaryPresenter(selectedImdbId)
 
         viewHolder.rankTextView.text = movie.rank.toString()
         viewHolder.titleTextView.text = movie.title

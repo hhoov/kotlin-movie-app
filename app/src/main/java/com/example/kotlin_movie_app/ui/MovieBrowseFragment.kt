@@ -1,23 +1,24 @@
 package com.example.kotlin_movie_app.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.leanback.app.BrowseSupportFragment
-import androidx.leanback.widget.ArrayObjectAdapter
-import androidx.leanback.widget.HeaderItem
-import androidx.leanback.widget.ListRow
-import androidx.leanback.widget.ListRowPresenter
+import androidx.leanback.widget.*
 import com.example.kotlin_movie_app.MovieApplication
 import com.example.kotlin_movie_app.R
 import com.example.kotlin_movie_app.model.Movie
+import kotlinx.android.synthetic.main.card_movie.view.*
 import javax.inject.Inject
 
 /**
  * Responsible for the UI of [MoviesActivity]. Loads a grid of cards with movies to browse.
  */
-class MovieBrowseFragment : BrowseSupportFragment(), MoviePresenter.MovieView {
+class MovieBrowseFragment : BrowseSupportFragment(), MoviePresenter.MovieView, OnItemViewClickedListener {
 
     companion object { private const val TAG = "MovieBrowseFragment" }
 
@@ -66,5 +67,32 @@ class MovieBrowseFragment : BrowseSupportFragment(), MoviePresenter.MovieView {
 
         // BrowseSupportFragment's setAdapter()
         adapter = rowsAdapter
+
+        onItemViewClickedListener = this
+    }
+
+    override fun onItemClicked(
+        itemViewHolder: Presenter.ViewHolder?,
+        item: Any?,
+        rowViewHolder: RowPresenter.ViewHolder?,
+        row: Row?
+    ) {
+        if (item is Movie) run {
+            val movie : Movie = item
+            val i = Intent(activity, MovieDetailsActivity::class.java)
+            // Pass the movie to the activity
+            i.putExtra(movie.imdbId, movie.imdbId)
+
+            if (itemViewHolder?.view is MoviePresenter.MovieView) {
+                // Pass the ImageView
+                /*val bundle: Bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                    (itemViewHolder.view as MoviePresenter.MovieView).poster, MovieDetailsFragment.TAG).toBundle()!!
+                activity?.startActivity(i, bundle)*/
+
+
+            } else {
+                startActivity(i)
+            }
+        }
     }
 }
